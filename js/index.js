@@ -21,18 +21,27 @@ var leftPressed = false;
 
 
 //Agregar soltado de teclas eventos de presionado
-document.addEventlListener("keydown",keydownHandler,false);
-document.addEventlListener("keyup" ,keyupHandler,false);
+document.addEventListener("keydown",keydownHandler,false);
+document.addEventListener("keyup" ,keyupHandler,false);
 
 //Esta funcion determina si se presiona una teclas
-function keydownHandler(){
-
+function keydownHandler(event) {
+  if (event.keyCode == 39) {
+    rightPressed = true;
+  } else if (event.keyCode == 37) {
+    leftPressed = true;
+  }
 }
 
-//esta funcion determina si se suelta una tcla
-function keyupHandler (){
-  
+//esta funcion determina si se suelta una tecla
+function keyupHandler (event) {
+  if (event.keyCode == 39) {
+    rightPressed = false;
+  } else if (event.keyCode == 37) {
+    leftPressed = false;
+  }
 }
+
 //esta funcion dibuja una paleta
 function drawPaddle () {
   context.beginPath();
