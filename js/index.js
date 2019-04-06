@@ -71,16 +71,28 @@ function draw() {
  //se llama a la funcion de dibujar la paleta
  drawPaddle();
 
- //Verificar si llego al limite de arriba/abajo
- if (y + dy < 0 || y + dy > canvas.height) {
-   dy = -dy;
- }
-
  //Verificar si llego al limite izquierda/derecho
-  if (x + dx < 0 || x + dx > canvas.width){
+  if (x + dx > canvas.width - ballRadius || x + dx < ballRadius){
     dx = -dx;
   }
 
+ if (y+ dy < ballRadius){
+   dy = -dy;
+ } else if (y +dy > canvas.height - ballRadius){
+   if(x > paddleX && paddleX + paddleWidth){
+     dy = -dy;
+   }else {
+      alert("LO SIENTO PERDITES VUELVE A INTENTARLO POR FAVOR!!!")
+      document.location.realod();
+   }
+ }
+
+//verificar si se toco la tecla direccional derecha
+if (rightPressed && paddleX < canvas.width - paddleWidth){
+  paddleX += 7;
+}else if (leftPressed && paddleX > 0){
+  paddleX -= 7;
+}
 
 
   x += dx;
