@@ -27,6 +27,9 @@ var brickPadding = 10;
 var brickOffsetLeft = 30;
 var brickOffsetTop = 30;
 
+var score = 0;
+
+
 var bloques = [];
 
 for (var fila = 0; fila < brickRowCount; fila++) {
@@ -108,13 +111,26 @@ function detectarColision() {
     for (var row = 0; row< brickRowCount; row++) {
       for(var column= 0; column <brickColumnCount; column++) {
         var bloque = bloques[row][column];
+      if (bloque.status ==1){
 
         if(x > bloque.x && x < bloque.x + brickWidth && y > bloque.y && y < bloque.y + brickHeight) {
           dy = -dy;
           bloque.status = 0;
+        score ++;
+        if(score == brickRowCount * brickColumnCount){
+          alert("Ganastes,felicidades!!!");
+          document.location.reload();
+        }
         }
       }
     }
+  }
+}
+//esta funcion dibuja el puntaje
+function drawScore(){
+  context.font = "16px Arial";
+  context.fillStyle = "#0095DD"
+  context.fillText("puntaje:" + score,8,20);
 }
 
 function draw() {
@@ -128,6 +144,8 @@ function draw() {
  //se llama a la funcion de dibujar la paleta
  drawPaddle();
 
+//se llama la funcion de dibujar un puntaje
+drawScore();
  //se le llama a la funcion detectar Colision
  detectarColision();
 
@@ -142,10 +160,10 @@ function draw() {
    if(x > paddleX && paddleX + paddleWidth){
      dy = -dy;
    }
-   // else {
-   //    alert("LO SIENTO PERDITES VUELVE A INTENTARLO POR FAVOR!!!")
-   //    document.location.realod();
-   // }
+   else {
+      alert("LO SIENTO PERDITES VUELVE A INTENTARLO POR FAVOR!!!")
+   document.location.realod();
+}
  }
 
 
